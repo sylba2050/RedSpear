@@ -26,7 +26,7 @@ func Default(c echo.Context) (err error) {
     extFlags |= blackfriday.HeadingIDs
     extFlags |= blackfriday.Titleblock
 
-	html := blackfriday.Run(([]byte)(md.MD), blackfriday.WithExtensions(extFlags))
+    html := blackfriday.Run(([]byte)(md.MD), blackfriday.WithExtensions(extFlags))
 
     return c.HTML(http.StatusOK, fmt.Sprintf("%s", html))
 }
