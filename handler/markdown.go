@@ -20,11 +20,11 @@ func Default(c echo.Context) (err error) {
         return
     }
 
-	extFlags := blackfriday.CommonExtensions
+    extFlags := blackfriday.CommonExtensions
     extFlags |= blackfriday.FencedCode
     extFlags |= blackfriday.Footnotes
     extFlags |= blackfriday.HeadingIDs
-	extFlags |= blackfriday.Titleblock
+    extFlags |= blackfriday.Titleblock
 
 	html := blackfriday.Run(([]byte)(md.MD), blackfriday.WithExtensions(extFlags))
 
