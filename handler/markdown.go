@@ -2,11 +2,11 @@ package markdown
 
 import (
     "os"
-	"fmt"
+    "fmt"
     "net/http"
 
     "github.com/labstack/echo"
-	"gopkg.in/russross/blackfriday.v2"
+    "gopkg.in/russross/blackfriday.v2"
 )
 
 type MarkdownData struct {
