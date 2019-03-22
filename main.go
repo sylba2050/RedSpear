@@ -18,7 +18,7 @@ func main() {
 
     e.File("/js/write.js", "js/write.js")
 
-    e.File("/css/style.css", "css/style.css")
+    e.File("/css/write.css", "css/write.css")
     e.File("/css/code.css", "css/code.css")
     e.File("/css/github.css", "css/github.css")
 
