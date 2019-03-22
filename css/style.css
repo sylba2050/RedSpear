@@ -1,0 +1,43 @@
+.article {
+  list-style-type: none;
+}
+
+#markdown {
+  width: 48%;
+  height: 98vh;
+  overflow: scroll;
+  resize: none;
+  float: left;
+  margin-right:1%;
+}
+
+#rawhtml {
+  width: 48%;
+  height: 98vh;
+  overflow: scroll;
+  margin-left:1%;
+}
+
+#html {
+  width: 48%;
+  height: 98vh;
+  overflow: scroll;
+  margin-left:1%;
+}
+
+.linenos {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
+.linenodiv {
+  padding: 0px;
+  margin: 0px;
+  color:white;
+  height: 100%;
+}
+
+.code {
+}
+
