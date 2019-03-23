@@ -26,6 +26,7 @@ func main() {
 
     db.AutoMigrate(&DB.Auth{})
     db.AutoMigrate(&DB.Article{})
+    db.AutoMigrate(&DB.Draft{})
     db.AutoMigrate(&DB.User{})
     db.AutoMigrate(&DB.Comment{})
 

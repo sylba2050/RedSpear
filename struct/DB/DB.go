@@ -19,6 +19,12 @@ type Article struct {
     Comment string `json:"comment" form:"comment" query:"comment"`
 }
 
+type Draft struct {
+    gorm.Model
+    UserId string `json:"userid" form:"userid" query:"userid"`
+    Content string `json:"content" form:"content" query:"content"`
+}
+
 type User struct {
     gorm.Model
     UserId string `json:"userid" form:"userid" query:"userid"`
