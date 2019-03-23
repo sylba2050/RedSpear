@@ -1,11 +1,7 @@
-#main {
+.contents {
   min-width: 200px;
   max-width: 980px;
   margin: 0 auto;
-}
-
-.contents {
-  width: 100%; 
   padding: 10px;
   border-bottom: 1px solid #e8e8e8;
   box-sizing: border-box;
