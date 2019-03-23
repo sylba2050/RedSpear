@@ -14,6 +14,8 @@ func main() {
     e.Use(middleware.Logger())
     e.Use(middleware.CORS())
 
+    e.Static("/img", "img")
+
     e.File("/", "html/index.html")
     e.File("/write", "html/write.html")
 

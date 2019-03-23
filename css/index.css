@@ -3,3 +3,36 @@
   max-width: 980px;
   margin: 0 auto;
 }
+
+.contents {
+  width: 100%; 
+  padding: 10px;
+  border-bottom: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.contents .icon {
+  width: 60px;
+  height: 60px;
+  float: left;
+  margin-right: 10px;
+}
+
+.contents .article_title {
+  width: 100%;
+  font: bold large "ＭＳ 明朝";
+}
+
+.contents img:not(.icon) {
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-top: 10px;
+}
+
+.contents div:not(.article_title) {
+  float: left;
+  margin-top: 10px;
+  margin-right: 10px;
+}
