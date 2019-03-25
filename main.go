@@ -45,6 +45,7 @@ func main() {
     e.File("/css/github.css", "css/github.css")
 
     e.POST("post", article.POST(db))
+    e.GET("get", article.GET(db))
 
     e.POST("api/md", markdown.Default)
 

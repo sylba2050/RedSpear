@@ -24,3 +24,12 @@ func POST(db *gorm.DB) echo.HandlerFunc {
         return c.HTML(http.StatusOK, "ok")
     }
 }
+
+func GET(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        article := []DB.Article{}
+        db.Limit(20).Find(&article)
+
+        return c.JSON(http.StatusOK, article)
+    }
+}
