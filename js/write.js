@@ -46,6 +46,29 @@ window.onload = function () {
         },
     },
     methods: {
+        postArticle : function() {
+            var article = {};
+            article.userid = 'sylba2050';
+            article.content = this.markdown;
+            article.cp = 0;
+            article.like = '';
+            article.comment = '';
+
+            fetch("/post", {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(article)
+            }).then(response => {
+                if (response.ok) {
+                    console.log("success");
+                } else {
+                    console.log("failed");
+                }
+            });
+        }
     }
   })
 }

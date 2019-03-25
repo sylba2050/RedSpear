@@ -2,6 +2,7 @@ package main
 
 import (
     "./handler"
+    "./handler/article"
     "./struct/DB"
 
     "github.com/labstack/echo"
@@ -42,6 +43,8 @@ func main() {
     e.File("/css/write.css", "css/write.css")
     e.File("/css/code.css", "css/code.css")
     e.File("/css/github.css", "css/github.css")
+
+    e.POST("post", article.POST)
 
     e.POST("api/md", markdown.Default)
 
