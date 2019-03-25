@@ -44,7 +44,7 @@ func main() {
     e.File("/css/code.css", "css/code.css")
     e.File("/css/github.css", "css/github.css")
 
-    e.POST("post", article.POST)
+    e.POST("post", article.POST(db))
 
     e.POST("api/md", markdown.Default)
 
