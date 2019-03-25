@@ -27,18 +27,22 @@ window.onload = function () {
             }
             this.markdown2htmlConvertFlg = true;
 
-            var json = {};
-            json.md = this.markdown;
+            var request_json = {};
+            request_json.md = this.markdown;
 
-            var request = new XMLHttpRequest();
-            request.open("POST", "http://153.126.139.150:8080/api/md", true);
-            request.setRequestHeader("Content-Type", "application/json");
-            request.onreadystatechange = function() {
-              if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                app.html = request.responseText;
-              }
-            }
-            request.send(JSON.stringify(json));
+            fetch("/api/md", {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(request_json)
+            }).then((response) => {
+                return response.text()
+            }).then((text) => {
+                console.log(text);
+                app.html = text;
+            });
         },
     },
     methods: {
