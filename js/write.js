@@ -40,7 +40,6 @@ window.onload = function () {
             }).then((response) => {
                 return response.text()
             }).then((text) => {
-                console.log(text);
                 app.html = text;
             });
         },
