@@ -19,6 +19,8 @@ func POST(db *gorm.DB) echo.HandlerFunc {
             fmt.Fprintln(os.Stderr, err)
             return err
         }
+
+        db.Create(&article)
         return c.HTML(http.StatusOK, "ok")
     }
 }
