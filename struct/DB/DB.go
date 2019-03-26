@@ -13,6 +13,7 @@ type Auth struct {
 type Article struct {
     gorm.Model
     UserId string `json:"userid" form:"userid" query:"userid"`
+    Title string `json:"title" form:"title" query:"title"`
     Content string `json:"content" form:"content" query:"content"`
     Cp uint `json:"cp" form:"cp" query:"cp"`
     Like string `json:"like" form:"like" query:"like"`
@@ -22,6 +23,7 @@ type Article struct {
 type Draft struct {
     gorm.Model
     UserId string `json:"userid" form:"userid" query:"userid"`
+    Title string `json:"title" form:"title" query:"title"`
     Content string `json:"content" form:"content" query:"content"`
 }
 

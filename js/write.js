@@ -48,6 +48,7 @@ window.onload = function () {
         postArticle : function() {
             var article = {};
             article.userid = 'sylba2050';
+            article.title = "test";
             article.content = this.markdown;
             article.cp = 0;
             article.like = '';
