@@ -35,28 +35,34 @@ func POST(db *gorm.DB) echo.HandlerFunc {
     }
 }
 
+func ConcatLikeAndStock(db *gorm.DB, articles []DB.Article) []ResponseData {
+    res := []ResponseData{}
+    for _, article := range articles {
+        tmp := ResponseData{ article.Model, article.UserId, article.Title, article.Content, article.Cp, 0, 0 }
+
+        likes := []DB.Like{}
+        var numLikes uint = 0
+        db.Where("article_id = ?", article.ID).Find(&likes).Count(&numLikes)
+        tmp.NumLikes = numLikes
+
+        stocks := []DB.Stock{}
+        var numStocks uint = 0
+        db.Where("article_id = ?", article.ID).Find(&stocks).Count(&numStocks)
+
+        tmp.NumStocks = numStocks
+
+        res = append(res, tmp)
+    }
+
+    return res
+}
+
 func GET(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         articles := []DB.Article{}
         db.Limit(20).Find(&articles)
 
-        res := []ResponseData{}
-        for _, article := range articles {
-            tmp := ResponseData{ article.Model, article.UserId, article.Title, article.Content, article.Cp, 0, 0 }
-
-            likes := []DB.Like{}
-            var numLikes uint = 0
-            db.Where("article_id = ?", article.ID).Find(&likes).Count(&numLikes)
-            tmp.NumLikes = numLikes
-
-            stocks := []DB.Stock{}
-            var numStocks uint = 0
-            db.Where("article_id = ?", article.ID).Find(&stocks).Count(&numStocks)
-
-            tmp.NumStocks = numStocks
-
-            res = append(res, tmp)
-        }
+        res := ConcatLikeAndStock(db, articles)
 
         return c.JSON(http.StatusOK, res)
     }
