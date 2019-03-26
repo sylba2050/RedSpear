@@ -43,8 +43,6 @@ func main() {
     e.POST("/article/post", article.POST(db))
     e.GET("/articles", article.GET(db))
     e.GET("/articles/:userid", article.GetByUser(db))
-    e.GET("/article/likes/count/:articleid", article.GetLikeCount(db))
-    e.GET("/article/stocks/count/:articleid", article.GetLikeCount(db))
 
     e.POST("/md", markdown.Default)
 

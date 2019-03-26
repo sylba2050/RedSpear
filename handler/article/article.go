@@ -12,6 +12,16 @@ import (
     _ "github.com/mattn/go-sqlite3"
 )
 
+type ResponseData struct {
+    gorm.Model
+    UserId string `json:"userid"`
+    Title string `json:"title"`
+    Content string `json:"content"`
+    Cp uint `json:"cp"`
+    NumLikes uint `json:"numlikes"`
+    NumStocks uint `json:"numstocks"`
+}
+
 func POST(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         article := new(DB.Article)
@@ -27,10 +37,28 @@ func POST(db *gorm.DB) echo.HandlerFunc {
 
 func GET(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        article := []DB.Article{}
-        db.Limit(20).Find(&article)
+        articles := []DB.Article{}
+        db.Limit(20).Find(&articles)
 
-        return c.JSON(http.StatusOK, article)
+        res := []ResponseData{}
+        for _, article := range articles {
+            tmp := ResponseData{ article.Model, article.UserId, article.Title, article.Content, article.Cp, 0, 0 }
+
+            likes := []DB.Like{}
+            var numLikes uint = 0
+            db.Where("article_id = ?", article.ID).Find(&likes).Count(&numLikes)
+            tmp.NumLikes = numLikes
+
+            stocks := []DB.Stock{}
+            var numStocks uint = 0
+            db.Where("article_id = ?", article.ID).Find(&stocks).Count(&numStocks)
+
+            tmp.NumStocks = numStocks
+
+            res = append(res, tmp)
+        }
+
+        return c.JSON(http.StatusOK, res)
     }
 }
 
@@ -42,29 +70,5 @@ func GetByUser(db *gorm.DB) echo.HandlerFunc {
         db.Limit(20).Where("user_id = ?", userid).Find(&article)
 
         return c.JSON(http.StatusOK, article)
-    }
-}
-
-func GetLikeCount(db *gorm.DB) echo.HandlerFunc {
-    return func(c echo.Context) error {
-        article_id := c.Param("articleid")
-
-        likes := []DB.Like{}
-        numLikes := 0
-        db.Where("article_id = ?", article_id).Find(&likes).Count(&numLikes)
-
-        return c.JSON(http.StatusOK, numLikes)
-    }
-}
-
-func GetStockCount(db *gorm.DB) echo.HandlerFunc {
-    return func(c echo.Context) error {
-        article_id := c.Param("articleid")
-
-        stocks := []DB.Stock{}
-        numStocks := 0
-        db.Where("article_id = ?", article_id).Find(&stocks).Count(&numStocks)
-
-        return c.JSON(http.StatusOK, numStocks)
     }
 }
