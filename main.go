@@ -46,6 +46,7 @@ func main() {
 
     e.POST("post", article.POST(db))
     e.GET("get", article.GET(db))
+    e.GET("/articles/:userid", article.GetByUser(db))
 
     e.POST("api/md", markdown.Default)
 
