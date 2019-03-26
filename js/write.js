@@ -2,6 +2,7 @@ window.onload = function () {
   var app = new Vue({
     el: '#main',
     data: {
+      title: "",
       markdown: "",
       html: "",
       hoge: false,
@@ -48,7 +49,7 @@ window.onload = function () {
         postArticle : function() {
             var article = {};
             article.userid = 'sylba2050';
-            article.title = "test";
+            article.title = this.title;
             article.content = this.markdown;
             article.cp = 0;
 
