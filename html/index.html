@@ -18,10 +18,10 @@
     <section class="contents" v-for="article in articles">
       <img class="icon" src="/img/icon_sample.svg" alt="icon">
       <span>
-        <div class="article_title">PythonでOCR</div>
+        <div class="article_title">{{article.title}}</div>
         <span class="CP">
           <img class="CP_icon" src="/img/icon_sample.svg" alt="icon">
-          <div class="CP_count">×10</div>
+          <div class="CP_count">×{{article.cp}}</div>
         </span>
         <span class="like">
           <img class="like_icon" src="/img/icon_sample.svg" alt="icon">
