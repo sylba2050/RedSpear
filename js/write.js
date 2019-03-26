@@ -30,7 +30,7 @@ window.onload = function () {
             var request_json = {};
             request_json.md = this.markdown;
 
-            fetch("/api/md", {
+            fetch("/md", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -53,7 +53,7 @@ window.onload = function () {
             article.like = '';
             article.comment = '';
 
-            fetch("/post", {
+            fetch("/article/post", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

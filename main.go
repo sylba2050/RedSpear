@@ -44,11 +44,11 @@ func main() {
     e.File("/css/code.css", "css/code.css")
     e.File("/css/github.css", "css/github.css")
 
-    e.POST("post", article.POST(db))
-    e.GET("get", article.GET(db))
+    e.POST("/article/post", article.POST(db))
+    e.GET("/articles", article.GET(db))
     e.GET("/articles/:userid", article.GetByUser(db))
 
-    e.POST("api/md", markdown.Default)
+    e.POST("/md", markdown.Default)
 
     e.Start(":8080")
 }
