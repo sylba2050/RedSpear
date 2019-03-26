@@ -72,9 +72,11 @@ func GetByUser(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         userid := c.Param("userid")
 
-        article := []DB.Article{}
-        db.Limit(20).Where("user_id = ?", userid).Find(&article)
+        articles := []DB.Article{}
+        db.Limit(20).Where("user_id = ?", userid).Find(&articles)
 
-        return c.JSON(http.StatusOK, article)
+        res := ConcatLikeAndStock(db, articles)
+
+        return c.JSON(http.StatusOK, res)
     }
 }
