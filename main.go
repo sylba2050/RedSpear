@@ -30,6 +30,8 @@ func main() {
     db.AutoMigrate(&DB.Draft{})
     db.AutoMigrate(&DB.User{})
     db.AutoMigrate(&DB.Comment{})
+    db.AutoMigrate(&DB.Like{})
+    db.AutoMigrate(&DB.Stock{})
 
     e.Static("/img", "img")
 
