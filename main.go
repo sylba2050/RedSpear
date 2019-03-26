@@ -34,17 +34,11 @@ func main() {
     db.AutoMigrate(&DB.Stock{})
 
     e.Static("/img", "img")
+    e.Static("/js", "js")
+    e.Static("/css", "css")
 
     e.File("/", "html/index.html")
     e.File("/write", "html/write.html")
-
-    e.File("/js/index.js", "js/index.js")
-    e.File("/js/write.js", "js/write.js")
-
-    e.File("/css/index.css", "css/index.css")
-    e.File("/css/write.css", "css/write.css")
-    e.File("/css/code.css", "css/code.css")
-    e.File("/css/github.css", "css/github.css")
 
     e.POST("/article/post", article.POST(db))
     e.GET("/articles", article.GET(db))
