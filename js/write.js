@@ -51,8 +51,6 @@ window.onload = function () {
             article.title = "test";
             article.content = this.markdown;
             article.cp = 0;
-            article.like = '';
-            article.comment = '';
 
             fetch("/article/post", {
                 method: 'POST',

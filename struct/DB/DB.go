@@ -16,8 +16,6 @@ type Article struct {
     Title string `json:"title" form:"title" query:"title"`
     Content string `json:"content" form:"content" query:"content"`
     Cp uint `json:"cp" form:"cp" query:"cp"`
-    Like string `json:"like" form:"like" query:"like"`
-    Comment string `json:"comment" form:"comment" query:"comment"`
 }
 
 type Draft struct {
@@ -33,6 +31,18 @@ type User struct {
     Cp uint `json:"cp" form:"cp" query:"cp"`
     LikeList string `json:"likelist" form:"likelist" query:"likelist"`
     StockList string `json:"stocklist" form:"stocklist" query:"stocklist"`
+}
+
+type Like struct {
+    gorm.Model
+    LikedUserId string `json:"userid" form:"userid" query:"userid"`
+    ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
+}
+
+type Stock struct {
+    gorm.Model
+    StockedUserId string `json:"userid" form:"userid" query:"userid"`
+    ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
 }
 
 type Comment struct {
