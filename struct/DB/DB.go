@@ -35,13 +35,13 @@ type User struct {
 
 type Like struct {
     gorm.Model
-    LikedUserId string `json:"userid" form:"userid" query:"userid"`
+    LikedUserId string `json:"likeduserid" form:"likeduserid" query:"likeduserid"`
     ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
 }
 
 type Stock struct {
     gorm.Model
-    StockedUserId string `json:"userid" form:"userid" query:"userid"`
+    StockedUserId string `json:"stockuserid" form:"stockuserid" query:"stockuserid"`
     ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
 }
 
