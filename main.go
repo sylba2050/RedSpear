@@ -27,11 +27,15 @@ func main() {
 
     db.AutoMigrate(&DB.Auth{})
     db.AutoMigrate(&DB.Article{})
-    db.AutoMigrate(&DB.Draft{})
-    db.AutoMigrate(&DB.User{})
-    db.AutoMigrate(&DB.Comment{})
+    db.AutoMigrate(&DB.ArticleStatus{})
     db.AutoMigrate(&DB.Like{})
     db.AutoMigrate(&DB.Stock{})
+    db.AutoMigrate(&DB.Comment{})
+    db.AutoMigrate(&DB.CpForArticle{})
+    db.AutoMigrate(&DB.User{})
+    db.AutoMigrate(&DB.UserFollowTag{})
+    db.AutoMigrate(&DB.FF{})
+    db.AutoMigrate(&DB.CpForUser{})
 
     e.Static("/img", "img")
     e.Static("/js", "js")
