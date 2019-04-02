@@ -45,7 +45,7 @@ func main() {
     e.File("/", "html/index.html")
     e.File("/write", "html/write.html")
 
-    e.POST("/article/post", article.Post(db))
+    e.POST("/article", article.Post(db))
     e.PUT("/article", article.Update(db))
     e.DELETE("/article/:articleid", article.Delete(db))
 

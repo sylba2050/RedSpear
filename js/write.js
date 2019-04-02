@@ -53,7 +53,7 @@ window.onload = function () {
             article.content = this.markdown;
             article.cp = 0;
 
-            fetch("/article/post", {
+            fetch("/article", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
