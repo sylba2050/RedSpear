@@ -46,9 +46,9 @@ type Comment struct {
 }
 
 type CpForArticle struct {
+    gorm.Model
     ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
-    //TODO 時系列データをいい感じに
-    DummyCp string `json:"cp" form:"cp" query:"cp"`
+    Cp string `json:"cp" form:"cp" query:"cp"`
 }
 
 type User struct {
@@ -72,7 +72,7 @@ type FF struct {
 }
 
 type CpForUser struct {
+    gorm.Model
     UserId string `json:"userid" form:"userid" query:"userid"`
-    //TODO 時系列データをいい感じに
-    DummyCp string `json:"cp" form:"cp" query:"cp"`
+    Cp string `json:"cp" form:"cp" query:"cp"`
 }
