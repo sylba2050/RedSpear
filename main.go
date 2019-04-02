@@ -1,7 +1,7 @@
 package main
 
 import (
-    "./handler"
+    "./handler/markdown"
     "./handler/article"
     "./handler/user"
     "./struct/DB"
