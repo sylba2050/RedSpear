@@ -27,6 +27,18 @@ func Post(db *gorm.DB) echo.HandlerFunc {
 
 func Update(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
+        data := new(DB.Article)
+        inDB := new(DB.Article)
+
+        if err := c.Bind(data); err != nil {
+            fmt.Fprintln(os.Stderr, err)
+            return err
+        }
+
+        db.Where("id = ?", data.ID).First(&inDB)
+        inDB = data
+        db.Save(&inDB)
+
         return c.HTML(http.StatusOK, "ok")
     }
 }
