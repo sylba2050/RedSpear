@@ -45,6 +45,12 @@ func Update(db *gorm.DB) echo.HandlerFunc {
 
 func Delete(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
+        id := c.Param("articleid")
+        inDB := new(DB.Article)
+
+        db.Where("id = ?", id).First(&inDB)
+        db.Delete(&inDB)
+
         return c.HTML(http.StatusOK, "ok")
     }
 }
