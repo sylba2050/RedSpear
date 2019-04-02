@@ -15,8 +15,8 @@ type Article struct {
     UserId string `json:"userid" form:"userid" query:"userid"`
     Title string `json:"title" form:"title" query:"title"`
     Content string `json:"content" form:"content" query:"content"`
-    tag string `json:"tag" form:"tag" query:"tag"`
-    privacy string `json:"privacy" form:"privacy" query:"privacy"`
+    Tag string `json:"tag" form:"tag" query:"tag"`
+    Privacy string `json:"privacy" form:"privacy" query:"privacy"`
 }
 
 type ArticleStatus struct {
