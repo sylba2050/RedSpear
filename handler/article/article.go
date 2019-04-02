@@ -12,17 +12,7 @@ import (
     _ "github.com/mattn/go-sqlite3"
 )
 
-type ResponseData struct {
-    gorm.Model
-    UserId string `json:"userid"`
-    Title string `json:"title"`
-    Content string `json:"content"`
-    Cp uint `json:"cp"`
-    NumLikes uint `json:"numlikes"`
-    NumStocks uint `json:"numstocks"`
-}
-
-func POST(db *gorm.DB) echo.HandlerFunc {
+func Post(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         article := new(DB.Article)
         if err := c.Bind(article); err != nil {
@@ -35,36 +25,96 @@ func POST(db *gorm.DB) echo.HandlerFunc {
     }
 }
 
-func ConcatLikeAndStock(db *gorm.DB, articles []DB.Article) []ResponseData {
-    res := []ResponseData{}
-    for _, article := range articles {
-        tmp := ResponseData{ article.Model, article.UserId, article.Title, article.Content, article.Cp, 0, 0 }
-
-        likes := []DB.Like{}
-        var numLikes uint = 0
-        db.Where("article_id = ?", article.ID).Find(&likes).Count(&numLikes)
-        tmp.NumLikes = numLikes
-
-        stocks := []DB.Stock{}
-        var numStocks uint = 0
-        db.Where("article_id = ?", article.ID).Find(&stocks).Count(&numStocks)
-
-        tmp.NumStocks = numStocks
-
-        res = append(res, tmp)
+func Update(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
     }
-
-    return res
 }
 
-func GET(db *gorm.DB) echo.HandlerFunc {
+func Delete(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func Stock(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func UnStock(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func Like(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func UnLike(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func Comment(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func UpdateComment(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func DeleteComment(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func Get(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         articles := []DB.Article{}
         db.Limit(20).Find(&articles)
 
-        res := ConcatLikeAndStock(db, articles)
+        return c.JSON(http.StatusOK, articles)
+    }
+}
 
-        return c.JSON(http.StatusOK, res)
+func GetNewer(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func GetVisited(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func GetPopulerPerDay(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func GetPopulerPerWeek(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func GetPopulerPerMonth(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
     }
 }
 
@@ -75,8 +125,18 @@ func GetByUser(db *gorm.DB) echo.HandlerFunc {
         articles := []DB.Article{}
         db.Limit(20).Where("user_id = ?", userid).Find(&articles)
 
-        res := ConcatLikeAndStock(db, articles)
+        return c.JSON(http.StatusOK, articles)
+    }
+}
 
-        return c.JSON(http.StatusOK, res)
+func GetById(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func Cp(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
     }
 }
