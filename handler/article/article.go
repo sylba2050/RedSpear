@@ -55,20 +55,54 @@ func Delete(db *gorm.DB) echo.HandlerFunc {
     }
 }
 
-func GetStockByArticleId(db *gorm.DB) echo.HandlerFunc {
+func GetStocksByArticleId(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        return c.HTML(http.StatusOK, "ok")
+        id := c.Param("articleid")
+        stocks := []DB.Stock{}
+
+        db.Where("article_id = ?", id).Find(&stocks)
+        return c.JSON(http.StatusOK, stocks)
     }
 }
 
 func Stock(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
+        auth := new(DB.Auth)
+        articleId := c.Param("articleid")
+
+        if err := c.Bind(auth); err != nil {
+            fmt.Fprintln(os.Stderr, err)
+            return err
+        }
+
+        stock := new(DB.Stock)
+        stock.StockedUserId = auth.UserId
+        stock.ArticleId = articleId
+
+        db.Create(&stock)
+
         return c.HTML(http.StatusOK, "ok")
     }
 }
 
 func UnStock(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
+        auth := new(DB.Auth)
+        articleId := c.Param("articleid")
+        stock := new(DB.Stock)
+
+        if err := c.Bind(auth); err != nil {
+            fmt.Fprintln(os.Stderr, err)
+            return err
+        }
+
+        err := db.Where("stocked_user_id = ? AND article_id = ?", auth.UserId, articleId).First(&stock).Error
+        if gorm.IsRecordNotFoundError(err) {
+            return c.HTML(http.StatusOK, "It is already unstock")
+        }
+
+        db.Delete(&stock)
+
         return c.HTML(http.StatusOK, "ok")
     }
 }

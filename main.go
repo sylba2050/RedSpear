@@ -50,7 +50,7 @@ func main() {
     e.PUT("/article", article.Update(db))
     e.DELETE("/article/:articleid", article.Delete(db))
 
-    e.GET("/article/stock/:articleid", article.GetStockByArticleId(db))
+    e.GET("/article/stock/:articleid", article.GetStocksByArticleId(db))
     e.POST("/article/stock/:articleid", article.Stock(db))
     e.DELETE("/article/stock/:articleid", article.UnStock(db))
 
