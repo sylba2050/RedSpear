@@ -57,3 +57,21 @@ func Cp(db *gorm.DB) echo.HandlerFunc {
         return c.HTML(http.StatusOK, "ok")
     }
 }
+
+func GetStockByUserId(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func GetLikeByUserId(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func GetCommentByUserId(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}

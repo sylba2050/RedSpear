@@ -55,6 +55,12 @@ func Delete(db *gorm.DB) echo.HandlerFunc {
     }
 }
 
+func GetStockByArticleId(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
 func Stock(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         return c.HTML(http.StatusOK, "ok")
@@ -67,6 +73,12 @@ func UnStock(db *gorm.DB) echo.HandlerFunc {
     }
 }
 
+func GetLikeByArticleId(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
 func Like(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         return c.HTML(http.StatusOK, "ok")
@@ -74,6 +86,12 @@ func Like(db *gorm.DB) echo.HandlerFunc {
 }
 
 func UnLike(db *gorm.DB) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.HTML(http.StatusOK, "ok")
+    }
+}
+
+func GetCommentByArticleId(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         return c.HTML(http.StatusOK, "ok")
     }
