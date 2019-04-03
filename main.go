@@ -54,7 +54,7 @@ func main() {
     e.POST("/article/stock/:articleid", article.Stock(db))
     e.DELETE("/article/stock/:articleid", article.UnStock(db))
 
-    e.GET("/article/like/:articleid", article.GetLikeByArticleId(db))
+    e.GET("/article/like/:articleid", article.GetLikesByArticleId(db))
     e.POST("/article/like/:articleid", article.Like(db))
     e.DELETE("/article/like/:articleid", article.UnLike(db))
 

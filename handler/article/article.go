@@ -107,20 +107,54 @@ func UnStock(db *gorm.DB) echo.HandlerFunc {
     }
 }
 
-func GetLikeByArticleId(db *gorm.DB) echo.HandlerFunc {
+func GetLikesByArticleId(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        return c.HTML(http.StatusOK, "ok")
+        id := c.Param("articleid")
+        likes := []DB.Like{}
+
+        db.Where("article_id = ?", id).Find(&likes)
+        return c.JSON(http.StatusOK, likes)
     }
 }
 
 func Like(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
+        auth := new(DB.Auth)
+        articleId := c.Param("articleid")
+
+        if err := c.Bind(auth); err != nil {
+            fmt.Fprintln(os.Stderr, err)
+            return err
+        }
+
+        like := new(DB.Like)
+        like.LikedUserId = auth.UserId
+        like.ArticleId = articleId
+
+        db.Create(&like)
+
         return c.HTML(http.StatusOK, "ok")
     }
 }
 
 func UnLike(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
+        auth := new(DB.Auth)
+        articleId := c.Param("articleid")
+        like := new(DB.Like)
+
+        if err := c.Bind(auth); err != nil {
+            fmt.Fprintln(os.Stderr, err)
+            return err
+        }
+
+        err := db.Where("liked_user_id = ? AND article_id = ?", auth.UserId, articleId).First(&like).Error
+        if gorm.IsRecordNotFoundError(err) {
+            return c.HTML(http.StatusOK, "It is already unstock")
+        }
+
+        db.Delete(&like)
+
         return c.HTML(http.StatusOK, "ok")
     }
 }
