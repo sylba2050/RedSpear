@@ -40,9 +40,21 @@ type Stock struct {
 
 type Comment struct {
     gorm.Model
+    ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
     UserId string `json:"userid" form:"userid" query:"userid"`
     Content string `json:"content" form:"content" query:"content"`
-    LikeList string `json:"likelist" form:"likelist" query:"likelist"`
+}
+
+type CommentStatus struct {
+    gorm.Model
+    CommentId string `json:"commentid" form:"commentid" query:"commentid"`
+    NumLike uint `json:"numlike" form:"numlike" query:"numlike"`
+}
+
+type CommentLike struct {
+    gorm.Model
+    CommentId string `json:"commentid" form:"commentid" query:"commentid"`
+    LikedUserId string `json:"likeduserid" form:"likeduserid" query:"likeduserid"`
 }
 
 type CpForArticle struct {

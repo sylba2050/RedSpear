@@ -32,6 +32,8 @@ func main() {
     db.AutoMigrate(&DB.Like{})
     db.AutoMigrate(&DB.Stock{})
     db.AutoMigrate(&DB.Comment{})
+    db.AutoMigrate(&DB.CommentStatus{})
+    db.AutoMigrate(&DB.CommentLike{})
     db.AutoMigrate(&DB.CpForArticle{})
     db.AutoMigrate(&DB.User{})
     db.AutoMigrate(&DB.UserFollowTag{})
@@ -58,10 +60,10 @@ func main() {
     e.POST("/article/like/:articleid", article.Like(db))
     e.DELETE("/article/like/:articleid", article.UnLike(db))
 
-    e.GET("/article/comment/:articleid", article.GetCommentByArticleId(db))
+    e.GET("/article/comments/:articleid", article.GetCommentsByArticleId(db))
     e.POST("/article/comment/:articleid", article.Comment(db))
-    e.PUT("/article/comment/:articleid/:commentid", article.UpdateComment(db))
-    e.DELETE("/article/comment/:articleid/:commentid", article.DeleteComment(db))
+    e.PUT("/article/comment/update/:commentid", article.UpdateComment(db))
+    e.DELETE("/article/comment/delete/:commentid", article.DeleteComment(db))
 
     e.GET("/articles", article.Get(db))
     e.GET("/articles/newer", article.GetNewer(db))

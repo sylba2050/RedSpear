@@ -159,26 +159,65 @@ func UnLike(db *gorm.DB) echo.HandlerFunc {
     }
 }
 
-func GetCommentByArticleId(db *gorm.DB) echo.HandlerFunc {
+func GetCommentsByArticleId(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        return c.HTML(http.StatusOK, "ok")
+        id := c.Param("articleid")
+        comments := []DB.Comment{}
+
+        db.Where("article_id = ?", id).Find(&comments)
+        return c.JSON(http.StatusOK, comments)
     }
 }
 
 func Comment(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
+        id := c.Param("articleid")
+        comment := new(DB.Comment)
+        if err := c.Bind(comment); err != nil {
+            fmt.Fprintln(os.Stderr, err)
+            return err
+        }
+
+        comment.ArticleId = id
+        db.Create(&comment)
         return c.HTML(http.StatusOK, "ok")
     }
 }
 
 func UpdateComment(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
+        id := c.Param("commentid")
+
+        comment := new(DB.Comment)
+        if err := c.Bind(comment); err != nil {
+            fmt.Fprintln(os.Stderr, err)
+            return err
+        }
+
+        old := new(DB.Comment)
+        err := db.Where("id = ?", id).First(&old).Error
+        if gorm.IsRecordNotFoundError(err) {
+            return c.HTML(http.StatusNotFound, "Not Found")
+        }
+
+        old.Content = comment.Content
+        db.Save(&old)
+
         return c.HTML(http.StatusOK, "ok")
     }
 }
 
 func DeleteComment(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
+        id := c.Param("commentid")
+        comment := new(DB.Comment)
+
+        err := db.Where("id = ?", id).First(&comment).Error
+        if gorm.IsRecordNotFoundError(err) {
+            return c.HTML(http.StatusNotFound, "Not Found")
+        }
+        db.Delete(&comment)
+
         return c.HTML(http.StatusOK, "ok")
     }
 }
