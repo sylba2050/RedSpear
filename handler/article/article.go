@@ -288,3 +288,12 @@ func Cp(db *gorm.DB) echo.HandlerFunc {
         return c.HTML(http.StatusOK, "ok")
     }
 }
+
+func SetCp(db *gorm.DB, id string, v int16) {
+    cp := new(DB.CpForArticle)
+
+    cp.ArticleId = id
+    cp.Cp = v
+
+    db.Create(&cp)
+}

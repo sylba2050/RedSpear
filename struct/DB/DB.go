@@ -60,7 +60,7 @@ type CommentLike struct {
 type CpForArticle struct {
     gorm.Model
     ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
-    Cp string `json:"cp" form:"cp" query:"cp"`
+    Cp int16 `json:"cp" form:"cp" query:"cp"`
 }
 
 type User struct {
