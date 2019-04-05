@@ -274,7 +274,12 @@ func GetByUser(db *gorm.DB) echo.HandlerFunc {
 
 func GetById(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        return c.HTML(http.StatusOK, "ok")
+        articleid := c.Param("articleid")
+
+        article := new(DB.Article)
+        db.Where("id = ?", articleid).First(&article)
+
+        return c.JSON(http.StatusOK, article)
     }
 }
 
