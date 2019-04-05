@@ -66,7 +66,7 @@ type CpForArticle struct {
 type User struct {
     gorm.Model
     UserId string `json:"userid" form:"userid" query:"userid"`
-    UserName string `json:"username" form:"usern"me query:"usern"me`
+    UserName string `json:"username" form:"username" query:"username"`
     LikeList string `json:"likelist" form:"likelist" query:"likelist"`
     StockList string `json:"stocklist" form:"stocklist" query:"stocklist"`
     Mail string `json:"mail" form:"mail" query:"mail"`
