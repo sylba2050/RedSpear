@@ -2,6 +2,7 @@ package article
 
 import (
     "../../struct/DB"
+    "../../struct/Point"
 
     "os"
     "fmt"
@@ -289,11 +290,30 @@ func Cp(db *gorm.DB) echo.HandlerFunc {
     }
 }
 
-func SetCp(db *gorm.DB, articleId string, v int16) {
+func insertCpToDB(db *gorm.DB, articleId string, type_ string) {
     cp := new(DB.CpForArticle)
+    point := Point.GetInitPoint()
+
+    switch type_ {
+    case "view":
+        cp.Cp = point.View
+    case "like":
+        cp.Cp = point.Like
+    case "unlike":
+        cp.Cp = -point.Like
+    case "stock":
+        cp.Cp = point.Stock
+    case "unstock":
+        cp.Cp = -point.Stock
+    case "comment":
+        cp.Cp = point.Comment
+    case "deleteComment":
+        cp.Cp = -point.Comment
+    default:
+        return
+    }
 
     cp.ArticleId = articleId
-    cp.Cp = v
 
     db.Create(&cp)
 }
