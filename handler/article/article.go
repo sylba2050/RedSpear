@@ -289,10 +289,10 @@ func Cp(db *gorm.DB) echo.HandlerFunc {
     }
 }
 
-func SetCp(db *gorm.DB, id string, v int16) {
+func SetCp(db *gorm.DB, articleId string, v int16) {
     cp := new(DB.CpForArticle)
 
-    cp.ArticleId = id
+    cp.ArticleId = articleId
     cp.Cp = v
 
     db.Create(&cp)
