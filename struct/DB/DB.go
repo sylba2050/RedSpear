@@ -5,9 +5,16 @@ import (
     _ "github.com/mattn/go-sqlite3"
 )
 
-type Auth struct {
+type User struct {
+    gorm.Model
     UserId string `json:"userid" form:"userid" query:"userid"`
-    PW string `json:"pw" form:"pw" query:"pw"`
+	Pw string `json:"pw" form:"pw" query:"pw"`
+	AuthCode string `json:"auth_code" form:"auth_code" query:"auth_code"`
+    UserName string `json:"user_name" form:"user_name" query:"user_name"`
+    IsLogin bool `json:"is_login" form:"is_login" query:"is_login"`
+    Mail string `json:"mail" form:"mail" query:"mail"`
+    Icon string `json:"icon" form:"icon" query:"icon"`
+    Cp uint16 `json:"cp" form:"cp" query:"cp"`
 }
 
 type Article struct {
@@ -17,74 +24,48 @@ type Article struct {
     Content string `json:"content" form:"content" query:"content"`
     Tag string `json:"tag" form:"tag" query:"tag"`
     Privacy string `json:"privacy" form:"privacy" query:"privacy"`
+    Cp uint16 `json:"cp" form:"cp" query:"cp"`
 }
 
-type ArticleStatus struct {
+type ArticleLike struct {
     gorm.Model
-    NumComment uint `json:"numcomment" form:"numcomment" query:"numcomment"`
-    NumStock uint `json:"numstock" form:"numstock" query:"numstock"`
-    NumLike uint `json:"numlike" form:"numlike" query:"numlike"`
-}
-
-type Like struct {
-    gorm.Model
-    LikedUserId string `json:"likeduserid" form:"likeduserid" query:"likeduserid"`
-    ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
-}
-
-type Stock struct {
-    gorm.Model
-    StockedUserId string `json:"stockuserid" form:"stockuserid" query:"stockuserid"`
-    ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
-}
-
-type Comment struct {
-    gorm.Model
-    ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
     UserId string `json:"userid" form:"userid" query:"userid"`
-    Content string `json:"content" form:"content" query:"content"`
+    ArticleId uint `json:"articleid" form:"articleid" query:"articleid"`
 }
 
-type CommentStatus struct {
+type ArticleStock struct {
     gorm.Model
-    CommentId string `json:"commentid" form:"commentid" query:"commentid"`
-    NumLike uint `json:"numlike" form:"numlike" query:"numlike"`
+    UserId string `json:"userid" form:"userid" query:"userid"`
+    ArticleId uint `json:"articleid" form:"articleid" query:"articleid"`
+}
+
+type ArticleComment struct {
+    gorm.Model
+    UserId string `json:"userid" form:"userid" query:"userid"`
+    ArticleId uint `json:"articleid" form:"articleid" query:"articleid"`
+    Content string `json:"content" form:"content" query:"content"`
 }
 
 type CommentLike struct {
     gorm.Model
-    CommentId string `json:"commentid" form:"commentid" query:"commentid"`
-    LikedUserId string `json:"likeduserid" form:"likeduserid" query:"likeduserid"`
+    UserId string `json:"userid" form:"userid" query:"userid"`
+    CommentId uint `json:"commentid" form:"commentid" query:"commentid"`
 }
 
-type CpForArticle struct {
+type Tag struct {
     gorm.Model
-    ArticleId string `json:"articleid" form:"articleid" query:"articleid"`
-    Cp int16 `json:"cp" form:"cp" query:"cp"`
+    ArticleId uint `json:"articleid" form:"articleid" query:"articleid"`
+    TagId uint `json:"tag" form:"tag" query:"tag"`
 }
 
-type User struct {
+type FollowTag struct {
     gorm.Model
     UserId string `json:"userid" form:"userid" query:"userid"`
-    UserName string `json:"username" form:"username" query:"username"`
-    LikeList string `json:"likelist" form:"likelist" query:"likelist"`
-    StockList string `json:"stocklist" form:"stocklist" query:"stocklist"`
-    Mail string `json:"mail" form:"mail" query:"mail"`
-    Icon string `json:"icon" form:"icon" query:"icon"`
-}
-
-type UserFollowTag struct {
-    UserId string `json:"userid" form:"userid" query:"userid"`
-    Tags string `json:"tags" form:"tags" query:"tags"`
+    Tag string `json:"tag" form:"tag" query:"tag"`
 }
 
 type FF struct {
+    gorm.Model
     Follow string `json:"follow" form:"follow" query:"follow"`
     Follower string `json:"follower" form:"follower" query:"follower"`
-}
-
-type CpForUser struct {
-    gorm.Model
-    UserId string `json:"userid" form:"userid" query:"userid"`
-    Cp string `json:"cp" form:"cp" query:"cp"`
 }
