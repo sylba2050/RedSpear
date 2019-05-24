@@ -2,7 +2,7 @@ package article
 
 import (
     "github.com/sylba2050/RedSpear/struct/DB"
-    "github.com/sylba2050/RedSpear/struct/Point"
+    _ "github.com/sylba2050/RedSpear/struct/Point"
 
     "os"
     "fmt"
@@ -59,7 +59,7 @@ func Delete(db *gorm.DB) echo.HandlerFunc {
 func GetStocksByArticleId(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         id := c.Param("articleid")
-        stocks := []DB.Stock{}
+        stocks := []DB.ArticleStock{}
 
         db.Where("article_id = ?", id).Find(&stocks)
         return c.JSON(http.StatusOK, stocks)
@@ -68,18 +68,14 @@ func GetStocksByArticleId(db *gorm.DB) echo.HandlerFunc {
 
 func Stock(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        auth := new(DB.Auth)
-        articleId := c.Param("articleid")
+        stock := new(DB.ArticleStock)
 
-        if err := c.Bind(auth); err != nil {
+        if err := c.Bind(stock); err != nil {
             fmt.Fprintln(os.Stderr, err)
             return err
         }
 
-        stock := new(DB.Stock)
-        stock.StockedUserId = auth.UserId
-        stock.ArticleId = articleId
-
+		// TODO: validate nil
         db.Create(&stock)
 
         return c.HTML(http.StatusOK, "ok")
@@ -88,21 +84,20 @@ func Stock(db *gorm.DB) echo.HandlerFunc {
 
 func UnStock(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        auth := new(DB.Auth)
-        articleId := c.Param("articleid")
-        stock := new(DB.Stock)
+        stock := new(DB.ArticleStock)
 
-        if err := c.Bind(auth); err != nil {
+        if err := c.Bind(stock); err != nil {
             fmt.Fprintln(os.Stderr, err)
             return err
         }
 
-        err := db.Where("stocked_user_id = ? AND article_id = ?", auth.UserId, articleId).First(&stock).Error
+		recode := new(DB.ArticleStock)
+        err := db.Where("user_id = ? AND article_id = ?", stock.UserId, stock.ArticleId).First(&recode).Error
         if gorm.IsRecordNotFoundError(err) {
             return c.HTML(http.StatusOK, "It is already unstock")
         }
 
-        db.Delete(&stock)
+        db.Delete(&recode)
 
         return c.HTML(http.StatusOK, "ok")
     }
@@ -111,26 +106,21 @@ func UnStock(db *gorm.DB) echo.HandlerFunc {
 func GetLikesByArticleId(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         id := c.Param("articleid")
-        likes := []DB.Like{}
+        likes := []DB.ArticleLike{}
 
-        db.Where("article_id = ?", id).Find(&likes)
+        db.Where("articleid = ?", id).Find(&likes)
         return c.JSON(http.StatusOK, likes)
     }
 }
 
 func Like(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        auth := new(DB.Auth)
-        articleId := c.Param("articleid")
+        like := new(DB.ArticleLike)
 
-        if err := c.Bind(auth); err != nil {
+        if err := c.Bind(like); err != nil {
             fmt.Fprintln(os.Stderr, err)
             return err
         }
-
-        like := new(DB.Like)
-        like.LikedUserId = auth.UserId
-        like.ArticleId = articleId
 
         db.Create(&like)
 
@@ -140,21 +130,20 @@ func Like(db *gorm.DB) echo.HandlerFunc {
 
 func UnLike(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        auth := new(DB.Auth)
-        articleId := c.Param("articleid")
-        like := new(DB.Like)
+        like := new(DB.ArticleLike)
 
-        if err := c.Bind(auth); err != nil {
+        if err := c.Bind(like); err != nil {
             fmt.Fprintln(os.Stderr, err)
             return err
         }
 
-        err := db.Where("liked_user_id = ? AND article_id = ?", auth.UserId, articleId).First(&like).Error
+        recode := new(DB.ArticleLike)
+        err := db.Where("user_id = ? AND article_id = ?", like.UserId, like.ArticleId).First(&recode).Error
         if gorm.IsRecordNotFoundError(err) {
-            return c.HTML(http.StatusOK, "It is already unstock")
+            return c.HTML(http.StatusOK, "It is already unlike")
         }
 
-        db.Delete(&like)
+        db.Delete(&recode)
 
         return c.HTML(http.StatusOK, "ok")
     }
@@ -163,7 +152,7 @@ func UnLike(db *gorm.DB) echo.HandlerFunc {
 func GetCommentsByArticleId(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         id := c.Param("articleid")
-        comments := []DB.Comment{}
+        comments := []DB.ArticleComment{}
 
         db.Where("article_id = ?", id).Find(&comments)
         return c.JSON(http.StatusOK, comments)
@@ -172,14 +161,13 @@ func GetCommentsByArticleId(db *gorm.DB) echo.HandlerFunc {
 
 func Comment(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        id := c.Param("articleid")
-        comment := new(DB.Comment)
+        comment := new(DB.ArticleComment)
+
         if err := c.Bind(comment); err != nil {
             fmt.Fprintln(os.Stderr, err)
             return err
         }
 
-        comment.ArticleId = id
         db.Create(&comment)
         return c.HTML(http.StatusOK, "ok")
     }
@@ -187,16 +175,14 @@ func Comment(db *gorm.DB) echo.HandlerFunc {
 
 func UpdateComment(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        id := c.Param("commentid")
-
-        comment := new(DB.Comment)
+        comment := new(DB.ArticleComment)
         if err := c.Bind(comment); err != nil {
             fmt.Fprintln(os.Stderr, err)
             return err
         }
 
-        old := new(DB.Comment)
-        err := db.Where("id = ?", id).First(&old).Error
+        old := new(DB.ArticleComment)
+        err := db.Where("id = ?", comment.ID).First(&old).Error
         if gorm.IsRecordNotFoundError(err) {
             return c.HTML(http.StatusNotFound, "Not Found")
         }
@@ -210,10 +196,9 @@ func UpdateComment(db *gorm.DB) echo.HandlerFunc {
 
 func DeleteComment(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
-        id := c.Param("commentid")
-        comment := new(DB.Comment)
+        comment := new(DB.ArticleComment)
 
-        err := db.Where("id = ?", id).First(&comment).Error
+        err := db.Where("id = ?", comment.ID).First(&comment).Error
         if gorm.IsRecordNotFoundError(err) {
             return c.HTML(http.StatusNotFound, "Not Found")
         }
@@ -288,32 +273,4 @@ func Cp(db *gorm.DB) echo.HandlerFunc {
     return func(c echo.Context) error {
         return c.HTML(http.StatusOK, "ok")
     }
-}
-
-func insertCpToDB(db *gorm.DB, articleId string, type_ string) {
-    cp := new(DB.CpForArticle)
-    point := Point.GetInitPoint()
-
-    switch type_ {
-    case "view":
-        cp.Cp = point.View
-    case "like":
-        cp.Cp = point.Like
-    case "unlike":
-        cp.Cp = -point.Like
-    case "stock":
-        cp.Cp = point.Stock
-    case "unstock":
-        cp.Cp = -point.Stock
-    case "comment":
-        cp.Cp = point.Comment
-    case "deleteComment":
-        cp.Cp = -point.Comment
-    default:
-        return
-    }
-
-    cp.ArticleId = articleId
-
-    db.Create(&cp)
 }
