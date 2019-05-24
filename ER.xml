@@ -84,7 +84,7 @@
 <row name="pw" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="code" null="1" autoincrement="0">
+<row name="AuthCode" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
 <row name="isLogin" null="1" autoincrement="0">
@@ -107,7 +107,7 @@
 <part>UserId</part>
 </key>
 </table>
-<table x="483" y="315" name="ArticleLike">
+<table x="468" y="315" name="ArticleLike">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -152,6 +152,31 @@
 <row name="Tag" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1123" y="62" name="FollowTag">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="createdAt" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+<default>NULL</default></row>
+<row name="deletedAt" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+<default>NULL</default></row>
+<row name="updatedAt" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+<default>NULL</default></row>
+<row name="TagId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="Tag" row="id" />
+</row>
+<row name="UserId" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default><relation table="Auth" row="UserId" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
