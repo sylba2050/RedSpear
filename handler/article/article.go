@@ -1,8 +1,8 @@
 package article
 
 import (
-    "../../struct/DB"
-    "../../struct/Point"
+    "github.com/sylba2050/RedSpear/struct/DB"
+    "github.com/sylba2050/RedSpear/struct/Point"
 
     "os"
     "fmt"

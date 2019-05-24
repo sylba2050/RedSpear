@@ -1,10 +1,10 @@
 package main
 
 import (
-    "./handler/markdown"
-    "./handler/article"
-    "./handler/user"
-    "./struct/DB"
+    "github.com/sylba2050/RedSpear/handler/markdown"
+    "github.com/sylba2050/RedSpear/handler/article"
+    "github.com/sylba2050/RedSpear/handler/user"
+    "github.com/sylba2050/RedSpear/struct/DB"
 
     "github.com/labstack/echo"
     "github.com/labstack/echo/middleware"

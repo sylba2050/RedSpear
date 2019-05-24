@@ -1,8 +1,6 @@
 package user
 
 import (
-    // "../../struct/DB"
-
     "net/http"
 
     "github.com/labstack/echo"
