@@ -10,6 +10,11 @@ body {
   padding: 10px;
 }
 
+#icon {
+    width: 55px;
+    height: 55px;
+}
+
 #write_button {
   background-color: white;
   padding: 10px;
