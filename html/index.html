@@ -38,7 +38,9 @@
         </span>
       </section>
 
-      <section id="article_detail" v-html="html" v-if="is_detail"></section>
+      <section id="article_detail" v-if="is_detail">
+        <div id="html" v-html="html"></div>
+      </section>
     </div>
   </body>
 </html>
