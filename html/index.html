@@ -15,7 +15,7 @@
       <a href="/write" id="write_button">記事を書く</a>
     </section>
 
-    <section class="contents" v-for="article in articles">
+    <section class="contents" v-for="article in articles" v-on:click="detail(article.ID)" v-if="!is_detail">
       <img class="icon" src="/img/icon_sample.svg" alt="icon">
       <span>
         <div class="article_title">{{article.title}}</div>
@@ -32,6 +32,9 @@
           <div class="comment_count">×{{article.numstocks}}</div>
         </span>
       </span>
+    </section>
+
+    <section id="article_detail" v-html="html" v-if="is_detail">
     </section>
 
   </div>
