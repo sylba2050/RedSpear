@@ -71,3 +71,21 @@ body {
   margin-top: 10px;
   margin-right: 10px;
 }
+
+#article_detail {
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#article_detail_title {
+  width: 100%;
+  font-size: 40px;
+}
+
+#html {
+  width: 100%;
+  min-width: 320px;
+}
