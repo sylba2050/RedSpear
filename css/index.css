@@ -47,6 +47,11 @@ body {
   display: flex;
 }
 
+#html {
+  width: 100%;
+  min-width: 320px;
+}
+
 #article_detail {
   min-width: 200px;
   max-width: 980px;
