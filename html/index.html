@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>MstnMemo</title>
-  <!-- demo用 -->
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="/js/index.js"></script>
-  <link rel="stylesheet" type="text/css" href="/css/index.css">
-</head>
-<body>
-  <div id="main">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MstnMemo</title>
+    <!-- demo用 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="/js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+  </head>
+  <body>
+    <div id="main">
+      <section id="header">
+        <a href="/write" id="write_button">記事を書く</a>
+      </section>
 
-    <section id="header">
-      <a href="/write" id="write_button">記事を書く</a>
-    </section>
-
-    <section class="contents" v-for="article in articles" v-on:click="detail(article.ID)" v-if="!is_detail">
-      <img class="icon" src="/img/icon_sample.svg" alt="icon">
-      <span>
-        <div class="article_title">{{article.title}}</div>
-        <span class="CP">
-          <img class="CP_icon" src="/img/icon_sample.svg" alt="icon">
-          <div class="CP_count">×{{article.cp}}</div>
+      <section
+        class="contents"
+        v-for="article in articles"
+        v-on:click="detail(article.ID)"
+        v-if="!is_detail"
+      >
+        <img class="icon" src="/img/icon_sample.svg" alt="icon" />
+        <span>
+          <div class="article_title">{{article.title}}</div>
+          <span class="CP">
+            <img class="CP_icon" src="/img/icon_sample.svg" alt="icon" />
+            <div class="CP_count">×{{article.cp}}</div>
+          </span>
+          <span class="like">
+            <img class="like_icon" src="/img/icon_sample.svg" alt="icon" />
+            <div class="like_count">×{{article.numlikes}}</div>
+          </span>
+          <span class="comment">
+            <img class="comment_icon" src="/img/icon_sample.svg" alt="icon" />
+            <div class="comment_count">×{{article.numstocks}}</div>
+          </span>
         </span>
-        <span class="like">
-          <img class="like_icon" src="/img/icon_sample.svg" alt="icon">
-          <div class="like_count">×{{article.numlikes}}</div>
-        </span>
-        <span class="comment">
-          <img class="comment_icon" src="/img/icon_sample.svg" alt="icon">
-          <div class="comment_count">×{{article.numstocks}}</div>
-        </span>
-      </span>
-    </section>
+      </section>
 
-    <section id="article_detail" v-html="html" v-if="is_detail">
-    </section>
-
-  </div>
-</body>
+      <section id="article_detail" v-html="html" v-if="is_detail"></section>
+    </div>
+  </body>
 </html>

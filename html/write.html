@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>MstnMemo</title>
-  <!-- demo用 -->
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="/js/write.js"></script>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MstnMemo</title>
+    <!-- demo用 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="/js/write.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="/css/github.css">
-  <link rel="stylesheet" type="text/css" href="/css/write.css">
-</head>
-<body>
-  <div id="main">
+    <link rel="stylesheet" type="text/css" href="/css/github.css" />
+    <link rel="stylesheet" type="text/css" href="/css/write.css" />
+  </head>
+  <body>
+    <div id="main">
+      <section id="header">
+        <input
+          type="button"
+          id="post_button"
+          value="���e"
+          v-on:click="postArticle"
+        />
+      </section>
 
-    <section id="header">
-      <input type="button" id="post_button" value="記事を投稿" v-on:click="postArticle">
-    </section>
+      <section>
+        <textarea id="title" v-model="title"></textarea>
+      </section>
 
-    <section>
-      <textarea id="title" v-model="title"></textarea>
-    </section>
+      <section>
+        <textarea id="markdown" v-model="markdown"></textarea>
+      </section>
 
-    <section>
-      <textarea id="markdown" v-model="markdown"></textarea>
-    </section>
+      <section v-if="hoge">
+        <textarea id="rawhtml" readonly>{{html}}</textarea>
+      </section>
 
-    <section v-if="hoge">
-      <textarea id="rawhtml" readonly>{{html}}</textarea>
-    </section>
-
-    <section class="markdown-body">
-      <div id="html" v-html="html"></div>
-    </section>
-
-  </div>
-</body>
+      <section class="markdown-body">
+        <div id="html" v-html="html"></div>
+      </section>
+    </div>
+  </body>
 </html>
