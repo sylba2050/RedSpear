@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MstnMemo</title>
+    <!-- demo用 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="/js/article.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/article.css" />
+    <link rel="stylesheet" type="text/css" href="/css/github.css" />
+  </head>
+  <body>
+    <div id="main">
+      <section id="article_detail">
+        <div id="article_detail_title">{{article_detail_data.title}}</div>
+        <div id="html" v-html="html"></div>
+      </section>
+    </div>
+  </body>
+</html>

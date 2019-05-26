@@ -42,6 +42,7 @@ func main() {
 
 	e.File("/", "html/index.html")
 	e.File("/write", "html/write.html")
+	e.File("/items/:articleid", "html/article.html")
 
 	e.GET("/article/:articleid", article.GetById(db))
 	e.POST("/article", article.Post(db))
